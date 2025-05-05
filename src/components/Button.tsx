@@ -1,10 +1,18 @@
+import { ReactNode } from "react";
 import { Button } from "antd";
+import { SizeType } from "antd/es/config-provider/SizeContext";
+interface ButtonProps {
+  type: "default" | "link" | "primary" | "text" | "dashed" | undefined;
+  size: SizeType;
+  children?: ReactNode;
+  onClick: () => void;
+  className?: string;
+}
 
-export default function App() {
+export default function CoustomButton({ type, size, children, onClick, className }: ButtonProps) {
   return (
-    <div className="p-8 bg-gray-100 min-h-screen">
-      <h1 className="text-2xl font-bold mb-4">My SPA</h1>
-      <Button type="primary">Ant Design Button</Button>
-    </div>
+    <Button type={type} size={size} onClick={onClick} className={`${className}`}>
+      {children}
+    </Button>
   );
 }
