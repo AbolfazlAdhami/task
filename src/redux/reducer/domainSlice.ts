@@ -14,9 +14,9 @@ export const addDomain = createAsyncThunk("domain/addDomain", async (domain: any
   return res.data;
 });
 
-export const updateDomain = createAsyncThunk("domain/updateDomain", async ({ _id, data }) => {
+export const updateDomain = createAsyncThunk("domain/updateDomain", async ({ _id, data }: { _id: string; data: any }) => {
   const res = await axios.put(`${BASE_URL}/${_id}`, data);
-  console.log(res)
+  console.log(res);
   return res.data;
 });
 
