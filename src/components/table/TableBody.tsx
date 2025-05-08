@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Alert, Button, Skeleton, Table, TableProps, Typography } from "antd";
+import { Alert, Skeleton, Table, TableProps, Typography } from "antd";
 import StatusTag from "./StatusTag";
-import { ExportOutlined, InfoCircleOutlined, MoreOutlined } from "@ant-design/icons";
+import { ExportOutlined, InfoCircleOutlined } from "@ant-design/icons";
 import { formateDate } from "../../utils/formateDate";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchDomains } from "../../redux/reducer/domainSlice";
 import { useEffect } from "react";
 import { AppDispatch, RootState } from "../../redux/store";
+import MoreOptions from "./MoreOptions";
 
 interface DataType {
   _id: string | number;
@@ -60,11 +61,7 @@ const columns: TableProps<DataType>["columns"] = [
   { title: "Created at", dataIndex: "createdDate", render: (record) => <Typography>{formateDate(record)}</Typography> },
   {
     title: "",
-    render: () => (
-      <Button size="small">
-        <MoreOutlined />
-      </Button>
-    ),
+    render: (value) => <MoreOptions value={value} />,
     align: "end",
   },
 ];

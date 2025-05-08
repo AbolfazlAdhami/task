@@ -14,7 +14,7 @@ interface InputFieldProps {
 }
 
 function InputField({ size, placeholder, prefix, className, onChange, value, required = false }: InputFieldProps) {
-  return <Input required value={value} allowClear size={size} onChange={onChange} className={className} placeholder={placeholder} prefix={prefix} />;
+  return <Input required={required} value={value} allowClear size={size} onChange={onChange} className={className} placeholder={placeholder} prefix={prefix} />;
 }
 
 export default InputField;

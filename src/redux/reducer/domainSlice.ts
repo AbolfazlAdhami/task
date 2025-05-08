@@ -2,14 +2,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-interface Domain {
-  _id: string;
-  domain: string;
-  isActive: boolean;
-  status: "pending" | "verified" | "rejected";
-  createdDate: string;
-}
-
 const BASE_URL = "https://6797aa2bc2c861de0c6d964c.mockapi.io/domain";
 
 export const fetchDomains = createAsyncThunk("domain/fetchDomains", async () => {
@@ -22,8 +14,9 @@ export const addDomain = createAsyncThunk("domain/addDomain", async (domain: any
   return res.data;
 });
 
-export const updateDomain = createAsyncThunk<Domain, Domain>("domain/updateDomain", async ({ _id, ...data }) => {
+export const updateDomain = createAsyncThunk("domain/updateDomain", async ({ _id, data }) => {
   const res = await axios.put(`${BASE_URL}/${_id}`, data);
+  console.log(res)
   return res.data;
 });
 
