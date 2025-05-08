@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Select } from "antd";
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 
 type SelectOption = { id: number; value: string; label: ReactNode };
 interface SelectBoxProps {
-  options: [SelectOption];
-  onChange?: () => void;
+  options: SelectOption[];
+  onChange?: any;
 }
 
 function SelectBox({ onChange, options }: SelectBoxProps) {

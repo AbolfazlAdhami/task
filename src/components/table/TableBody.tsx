@@ -1,7 +1,12 @@
-import { Button, Table, TableProps, Typography } from "antd";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Alert, Button, Skeleton, Table, TableProps, Typography } from "antd";
 import StatusTag from "./StatusTag";
 import { ExportOutlined, InfoCircleOutlined, MoreOutlined } from "@ant-design/icons";
-import { useGetDomainsQuery } from "../../redux/slice/domainSlice";
+import { formateDate } from "../../utils/formateDate";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchDomains } from "../../redux/reducer/domainSlice";
+import { useEffect } from "react";
+import { AppDispatch, RootState } from "../../redux/store";
 
 interface DataType {
   _id: string | number;
@@ -12,9 +17,15 @@ interface DataType {
 }
 
 function TableBody() {
-  const { data, isLoading, error } = useGetDomainsQuery();
-  //   if (isLoading) return <Spin className="block mx-auto mt-10" />;
-  return <Table<DataType> rowKey={(record) => record.domain} pagination={{ pageSize: 5 }} columns={columns} dataSource={data} />;
+  const dispatch = useDispatch<AppDispatch>();
+  const { filtered, status, error } = useSelector((state: RootState) => state.domain);
+  useEffect(() => {
+    dispatch(fetchDomains());
+  }, [dispatch]);
+
+  if (status === "loading") return <TableLoading />;
+  if (error) return <Alert message="Error To fetch Data!!!" type="error" showIcon />;
+  return <Table<DataType> rowKey={(record) => record.domain} pagination={{ pageSize: 15 }} columns={columns} dataSource={filtered} />;
 }
 
 export default TableBody;
@@ -42,12 +53,11 @@ const columns: TableProps<DataType>["columns"] = [
     dataIndex: "status",
     key: "status",
     render: (record) => {
-      if (record == "Not Verified") return <StatusTag status={"rejected"} />;
       return <StatusTag status={record} />;
     },
     align: "center",
   },
-  { title: "Created at", dataIndex: "createdDate", render: (record) => <Typography>{new Date(record).toLocaleDateString("en-US", { dateStyle: "medium" })}</Typography> },
+  { title: "Created at", dataIndex: "createdDate", render: (record) => <Typography>{formateDate(record)}</Typography> },
   {
     title: "",
     render: () => (
@@ -58,3 +68,13 @@ const columns: TableProps<DataType>["columns"] = [
     align: "end",
   },
 ];
+
+const TableLoading = () => (
+  <>
+    {" "}
+    <Skeleton.Input block active size="large" className="p-4 bg-slate-50 rounded shadow" />
+    <Skeleton.Input block active size="large" className="p-4 bg-slate-50 rounded shadow" />
+    <Skeleton.Input block active size="large" className="p-4 bg-slate-50 rounded shadow" />
+    <Skeleton.Input block active size="large" className="p-4 bg-slate-50 rounded shadow" />
+  </>
+);

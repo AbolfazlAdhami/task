@@ -13,7 +13,8 @@ const StatusRecord: Record<Status, StatusBadge> = {
 };
 
 function StatusTag({ status }: { status: Status }) {
-  return <Tag color={StatusRecord[status].color}>{StatusRecord[status].text}</Tag>;
+  console.log(status);
+  return <Tag color={StatusRecord[status] ? StatusRecord[status].color : "default"}>{StatusRecord[status] ? StatusRecord[status].text : status}</Tag>;
 }
 
 export default StatusTag;
