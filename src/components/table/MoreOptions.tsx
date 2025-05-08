@@ -6,7 +6,6 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../redux/store";
 import { deleteDomain, updateDomain } from "../../redux/reducer/domainSlice";
 function MoreOptions({ value }: any) {
-  console.log(value.id);
   const dispatch = useDispatch<AppDispatch>();
 
   const updateDomainHander = () => {
