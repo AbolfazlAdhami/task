@@ -1,8 +1,9 @@
 import { Select } from "antd";
 import React, { ReactNode } from "react";
 
+type SelectOption = { id: number; value: string; label: ReactNode };
 interface SelectBoxProps {
-  options: [{ value: string; label: ReactNode }];
+  options: [SelectOption];
   onChange?: () => void;
 }
 

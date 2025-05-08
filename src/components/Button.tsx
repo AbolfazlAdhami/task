@@ -11,7 +11,7 @@ interface ButtonProps {
 
 export default function CoustomButton({ type, size, children, onClick, className }: ButtonProps) {
   return (
-    <Button type={type} size={size} onClick={onClick} className={`${className}`}>
+    <Button type={type} size={size} onClick={onClick} className={` ${className}`}>
       {children}
     </Button>
   );

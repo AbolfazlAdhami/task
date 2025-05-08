@@ -6,10 +6,11 @@ interface InputFieldProps {
   placeholder?: string;
   size: SizeType;
   prefix?: ReactNode;
+  className?: string;
 }
 
-function InputField({ size, placeholder, prefix }: InputFieldProps) {
-  return <Input size={size} placeholder={placeholder} prefix={prefix} />;
+function InputField({ size, placeholder, prefix, className }: InputFieldProps) {
+  return <Input size={size} className="px-2" placeholder={placeholder} prefix={prefix} />;
 }
 
 export default InputField;
